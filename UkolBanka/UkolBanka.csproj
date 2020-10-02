@@ -66,8 +66,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DepozitLoad.xaml.cs">
+      <DependentUpon>DepozitLoad.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StudentDepozit.cs" />
     <Compile Include="Uzivatel.cs" />
+    <Page Include="DepozitLoad.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DepozitWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -97,7 +97,7 @@ namespace UkolBanka
                         {
                             sw.WriteLine(studentDepozit.NazevUctu);
                         }
-                        Stream stream2 = new FileStream(studentDepozit.NazevUctu + ".txt", FileMode.Append);
+                        Stream stream2 = new FileStream(studentDepozit.NazevUctu + "-student.txt", FileMode.Append);
                         using (StreamWriter sw = new StreamWriter(stream2))
                         {
                             sw.WriteLine(studentDepozit.NazevUctu);

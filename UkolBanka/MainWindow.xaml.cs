@@ -55,7 +55,11 @@ namespace UkolBanka
 
         private void CreateAcc_Click(object sender, RoutedEventArgs e)
         {
-
+            if (lblAccounts.SelectedItem != null)
+            {
+                DepozitLoad depozitLoad = new DepozitLoad(lblAccounts.SelectedItem.ToString() + ".txt");
+                depozitLoad.ShowDialog();
+            }
         }
     }
 }
