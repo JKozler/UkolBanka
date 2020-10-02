@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.IO;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -23,6 +24,17 @@ namespace UkolBanka
         public MainWindow()
         {
             InitializeComponent();
+            if (File.Exists("accounts.txt"))
+            {
+                using (StreamReader sr = new StreamReader("accounts.txt"))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        lblAccounts.Items.Add(line);
+                    }
+                }
+            }
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -32,7 +44,6 @@ namespace UkolBanka
 
         private void Deposit_Click(object sender, RoutedEventArgs e)
         {
-            firstWind.WindowState = WindowState.Minimized;
             DepozitWindow depozitWindow = new DepozitWindow();
             depozitWindow.ShowDialog();
         }

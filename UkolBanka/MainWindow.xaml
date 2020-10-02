@@ -28,6 +28,7 @@
             <materialDesign:PackIcon Kind="Create" Width="120" Height="120" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <Button x:Name="kredit" Click="Kredit_Click" Grid.Row="1" Grid.Column="2" Content="Kreditní" FontWeight="Bold" FontSize="48" HorizontalAlignment="Left" VerticalAlignment="Center" Height="90" Margin="0,66,0,80" Width="278" Background="#FFDADADA"/>
             <Border Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Background="Black"></Border>
+            <ListBox FontSize="25" HorizontalContentAlignment="Center" x:Name="lblAccounts" Grid.Row="3" Margin="5"></ListBox>
             <Button x:Name="createAcc" Click="CreateAcc_Click" Grid.Column="1" Grid.Row="3" Content="Načíst účet" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Background="#FFDADADA" FontWeight="Bold"></Button>
         </Grid>
     </Border>
