@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace UkolBanka
 {
     /// <summary>
-    /// Interakční logika pro MainWindow.xaml
+    /// Interakční logika pro DepozitWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class DepozitWindow : Window
     {
-        public MainWindow()
+        public DepozitWindow()
         {
             InitializeComponent();
         }
@@ -30,21 +29,9 @@ namespace UkolBanka
             DragMove();
         }
 
-        private void Deposit_Click(object sender, RoutedEventArgs e)
+        private void Close_Click(object sender, RoutedEventArgs e)
         {
-            firstWind.WindowState = WindowState.Minimized;
-            DepozitWindow depozitWindow = new DepozitWindow();
-            depozitWindow.ShowDialog();
-        }
-
-        private void Kredit_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void CreateAcc_Click(object sender, RoutedEventArgs e)
-        {
-
+            this.Close();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿<Window x:Class="UkolBanka.MainWindow"
+﻿<Window x:Name="firstWind" x:Class="UkolBanka.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,8 +9,26 @@
         fw:AcrylicWindow.Enabled="True"
         fw:AcrylicWindow.AcrylicWindowStyle="None"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" MouseDown="Window_MouseDown">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="720" Width="1800" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" MouseDown="Window_MouseDown">
+    <Border>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.05*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Content="Založit nový" FontSize="72"></Label>
+            <Button x:Name="deposit" Click="Deposit_Click" Grid.Row="1" Content="Depozitní" FontWeight="Bold" FontSize="48" HorizontalAlignment="Right" VerticalAlignment="Center" Height="90" Margin="165,66,0,80" Width="278" Background="#FFDADADA"/>
+            <materialDesign:PackIcon Kind="Create" Width="120" Height="120" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Button x:Name="kredit" Click="Kredit_Click" Grid.Row="1" Grid.Column="2" Content="Kreditní" FontWeight="Bold" FontSize="48" HorizontalAlignment="Left" VerticalAlignment="Center" Height="90" Margin="0,66,0,80" Width="278" Background="#FFDADADA"/>
+            <Border Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Background="Black"></Border>
+            <Button x:Name="createAcc" Click="CreateAcc_Click" Grid.Column="1" Grid.Row="3" Content="Načíst účet" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Background="#FFDADADA" FontWeight="Bold"></Button>
+        </Grid>
+    </Border>
 </Window>
