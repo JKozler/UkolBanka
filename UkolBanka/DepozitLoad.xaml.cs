@@ -51,7 +51,7 @@ namespace UkolBanka
                         }
                         else if (i == 1)
                         {
-                            actualStateOfMoney.Content = "Aktuální stav - " + line;
+                            actualStateOfMoney.Content = "Aktuální stav - " + line + "Kč.";
                             if (nameFile.Contains("student"))
                                 studentDepozit.Vklad = Convert.ToDouble(line);
                             else
@@ -60,7 +60,7 @@ namespace UkolBanka
                         }
                         else if (i == 2)
                         {
-                            actualMaxWithrawl.Content = "Student, max. výběr - " + line;
+                            actualMaxWithrawl.Content = "Student, max. výběr - " + line + "Kč.";
                             studentDepozit.MaxVyber = Convert.ToDouble(line);
                             i++;
                         }
@@ -115,7 +115,65 @@ namespace UkolBanka
 
         private void unPasteMoneyBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (File.Exists(nazev))
+            {
+                if (unPasteMoney.Text != null)
+                {
+                    if (student)
+                    {
+                        if (Convert.ToDouble(unPasteMoney.Text) <= studentDepozit.MaxVyber)
+                        {
+                            if ((studentDepozit.Vklad - Convert.ToDouble(unPasteMoney.Text)) >= 0)
+                            {
+                                studentDepozit.Vklad -= Convert.ToDouble(unPasteMoney.Text);
+                                Stream stream = new FileStream(nazev, FileMode.Create);
+                                using (StreamWriter sw = new StreamWriter(stream))
+                                {
+                                    sw.WriteLine(studentDepozit.NazevUctu);
+                                    sw.WriteLine(studentDepozit.Vklad);
+                                    sw.WriteLine(studentDepozit.MaxVyber);
+                                }
+                                actualStateOfMoney.Content = "Aktuální stav - " + studentDepozit.Vklad.ToString();
+                            }
+                            else
+                                MessageBox.Show("You can't under 0.");
+                        }
+                        else
+                            MessageBox.Show("You can't go under your max payout.");
+                    }
+                    else
+                    {
+                        if ((depozitnics.Vklad - Convert.ToDouble(unPasteMoney.Text)) >= 0)
+                        {
+                            depozitnics.Vklad -= Convert.ToDouble(unPasteMoney.Text);
+                            Stream stream = new FileStream(nazev, FileMode.Create);
+                            using (StreamWriter sw = new StreamWriter(stream))
+                            {
+                                sw.WriteLine(depozitnics.NazevUctu);
+                                sw.WriteLine(depozitnics.Vklad);
+                            }
+                            actualStateOfMoney.Content = "Aktuální stav - " + depozitnics.Vklad.ToString();
+                        }
+                        else
+                            MessageBox.Show("You can't under 0.");
+                    }
+                    unPasteMoney.Clear();
+                }
+            }
+        }
 
+        private void infoBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (student)
+                MessageBox.Show(studentDepozit.ToString(), "Info about " + studentDepozit.NazevUctu, MessageBoxButton.OK, MessageBoxImage.Information);
+            else
+                MessageBox.Show(depozitnics.ToString(), "Info about " + depozitnics.NazevUctu, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void Calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
+        {
+            virtaulDate.Content = calendar.SelectedDate.Value.ToString();
+            txtPredikce.Text = depozitnics.CalculateEarnings(calendar.SelectedDate.Value);
         }
     }
 }

@@ -33,19 +33,39 @@
             </Button>
             <Label x:Name="nameOfAcc" Content="Depozitní účet" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontWeight="Bold" Grid.ColumnSpan="2"></Label>
             <Label Grid.Column="4" HorizontalAlignment="Right" Content="[Datum]" x:Name="actualDate" FontSize="24" FontWeight="Bold"></Label>
+            <Label Grid.Column="4" HorizontalAlignment="Right" Content="Virtuální datum" x:Name="virtaulDate" FontSize="24" VerticalContentAlignment="Bottom"/>
             <Label Grid.Row="0" Grid.Column="2" x:Name="actualStateOfMoney" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25"></Label>
             <Label Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" x:Name="actualMaxWithrawl" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25"></Label>
             <Label Grid.Row="1" Content="Vložit peníze:" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontWeight="Bold" FontSize="30"></Label>
             <Label Grid.Row="2" Content="Vybrat peníze:" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontWeight="Bold" FontSize="30"></Label>
-            <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" x:Name="pasteMoney" HorizontalContentAlignment="Center" FontSize="30"></TextBox>
-            <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="unPasteMoney" HorizontalContentAlignment="Center" FontSize="30"></TextBox>
+            <TextBox Margin="0,0,0,30" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Bottom" Grid.ColumnSpan="2" x:Name="pasteMoney" HorizontalContentAlignment="Center" FontSize="30"></TextBox>
+            <TextBox Margin="0,0,0,30" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Bottom" Grid.ColumnSpan="2" x:Name="unPasteMoney" HorizontalContentAlignment="Center" FontSize="30"></TextBox>
             <Button x:Name="pasteMoneyBtn" Grid.Column="3" Grid.Row="1" Click="pasteMoneyBtn_Click" Height="Auto" Margin="10,35,197,10" Background="#FF67FF4F">
                 <materialDesign:PackIcon Kind="Money" Width="60" Height="60"/>
             </Button>
             <Button x:Name="unPasteMoneyBtn" Grid.Column="3" Grid.Row="2" Click="unPasteMoneyBtn_Click" Height="Auto" Margin="10,35,197,10" Background="#FF67FF4F">
                 <materialDesign:PackIcon Kind="Payment" Width="60" Height="60"/>
             </Button>
-            <Calendar Margin="10,0,10,10" Grid.RowSpan="3" Grid.Column="5" Grid.Row="3"/>
+            <Button Grid.Column="0" Grid.Row="5" x:Name="infoBtn" Click="infoBtn_Click" Height="70" VerticalAlignment="Center" HorizontalAlignment="Left" Background="#FF59FFF7" Margin="10,40,0,10" Width="95">
+                <materialDesign:PackIcon Kind="InfoCircleOutline" Width="60" Height="60"/>
+            </Button>
+            <Border Grid.Column="5" Grid.Row="1" Grid.RowSpan="2" Margin="2" Background="#FFE6E6E6">
+                <Grid>
+                    <!--<Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>-->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.4*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBox IsEnabled="False" TextWrapping="WrapWithOverflow" Text="Po kliknutí na kalendář se zde zobrazí Vaše predikce Vašeho zúročnění." HorizontalContentAlignment="Center" VerticalContentAlignment="Top" FontSize="20" Foreground="Black"></TextBox>
+                    <materialDesign:PackIcon Height="40" Width="40" Kind="ArrowDown" Grid.Row="1" HorizontalAlignment="Center"/>
+                    <TextBox Grid.Row="2" IsEnabled="False" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="18" x:Name="txtPredikce"></TextBox>
+                </Grid>
+            </Border>
+            <Calendar x:Name="calendar" SelectedDatesChanged="Calendar_SelectedDatesChanged" Margin="10,0,10,10" Grid.RowSpan="3" Grid.Column="5" Grid.Row="3"/>
         </Grid>
     </Border>
 </Window>

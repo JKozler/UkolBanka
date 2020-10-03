@@ -16,7 +16,7 @@ namespace UkolBanka
         public StudentDepozit() {}
         public override string ToString()
         {
-            return base.ToString() + " A jelikož je studentský, tak má maximální výběr " + MaxVyber + "Kč.";
+            return base.ToString() + " A jelikož je studentský, tak má maximální výběr " + MaxVyber + "Kč s 1,2% zúročněním za rok.";
         }
     }
 }
