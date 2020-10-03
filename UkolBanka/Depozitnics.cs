@@ -15,5 +15,10 @@ namespace UkolBanka
             NazevUctu = nazevUctu;
             Vklad = vklad;
         }
+        public Depozitnics() {}
+        public virtual string ToString()
+        {
+            return "Účet s názvem " + NazevUctu + " má stav účtu " + Vklad + "Kč.";
+        }
     }
 }

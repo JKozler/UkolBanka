@@ -35,6 +35,16 @@
             <Label Grid.Column="4" HorizontalAlignment="Right" Content="[Datum]" x:Name="actualDate" FontSize="24" FontWeight="Bold"></Label>
             <Label Grid.Row="0" Grid.Column="2" x:Name="actualStateOfMoney" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25"></Label>
             <Label Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" x:Name="actualMaxWithrawl" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25"></Label>
+            <Label Grid.Row="1" Content="Vložit peníze:" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontWeight="Bold" FontSize="30"></Label>
+            <Label Grid.Row="2" Content="Vybrat peníze:" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontWeight="Bold" FontSize="30"></Label>
+            <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" x:Name="pasteMoney" HorizontalContentAlignment="Center" FontSize="30"></TextBox>
+            <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="unPasteMoney" HorizontalContentAlignment="Center" FontSize="30"></TextBox>
+            <Button x:Name="pasteMoneyBtn" Grid.Column="3" Grid.Row="1" Click="pasteMoneyBtn_Click" Height="Auto" Margin="10,35,197,10" Background="#FF67FF4F">
+                <materialDesign:PackIcon Kind="Money" Width="60" Height="60"/>
+            </Button>
+            <Button x:Name="unPasteMoneyBtn" Grid.Column="3" Grid.Row="2" Click="unPasteMoneyBtn_Click" Height="Auto" Margin="10,35,197,10" Background="#FF67FF4F">
+                <materialDesign:PackIcon Kind="Payment" Width="60" Height="60"/>
+            </Button>
             <Calendar Margin="10,0,10,10" Grid.RowSpan="3" Grid.Column="5" Grid.Row="3"/>
         </Grid>
     </Border>

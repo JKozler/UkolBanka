@@ -13,5 +13,10 @@ namespace UkolBanka
         {
             MaxVyber = maxVyber;
         }
+        public StudentDepozit() {}
+        public override string ToString()
+        {
+            return base.ToString() + " A jelikož je studentský, tak má maximální výběr " + MaxVyber + "Kč.";
+        }
     }
 }

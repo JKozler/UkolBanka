@@ -21,9 +21,14 @@ namespace UkolBanka
     public partial class DepozitLoad : Window
     {
         int i = 0;
+        bool student = false;
+        string nazev = "";
+        Depozitnics depozitnics = new Depozitnics();
+        StudentDepozit studentDepozit = new StudentDepozit();
         public DepozitLoad(string nameFile)
         {
             InitializeComponent();
+            nazev = nameFile;
             actualDate.Content = DateTime.Now.ToShortDateString();
             if (File.Exists(nameFile))
             {
@@ -35,16 +40,28 @@ namespace UkolBanka
                         if (i == 0)
                         {
                             nameOfAcc.Content = "Depozitní účet - " + line;
+                            if (nameFile.Contains("student"))
+                            {
+                                studentDepozit.NazevUctu = line;
+                                student = true;
+                            }
+                            else
+                                depozitnics.NazevUctu = line;
                             i++;
                         }
                         else if (i == 1)
                         {
                             actualStateOfMoney.Content = "Aktuální stav - " + line;
+                            if (nameFile.Contains("student"))
+                                studentDepozit.Vklad = Convert.ToDouble(line);
+                            else
+                                depozitnics.Vklad = Convert.ToDouble(line);
                             i++;
                         }
                         else if (i == 2)
                         {
                             actualMaxWithrawl.Content = "Student, max. výběr - " + line;
+                            studentDepozit.MaxVyber = Convert.ToDouble(line);
                             i++;
                         }
                     }
@@ -60,6 +77,45 @@ namespace UkolBanka
         private void close_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void pasteMoneyBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists(nazev))
+            {
+                if (pasteMoney.Text != null)
+                {
+                    if (student)
+                    {
+                        studentDepozit.Vklad += Convert.ToDouble(pasteMoney.Text);
+                        Stream stream = new FileStream(nazev, FileMode.Create);
+                        using (StreamWriter sw = new StreamWriter(stream))
+                        {
+                            sw.WriteLine(studentDepozit.NazevUctu);
+                            sw.WriteLine(studentDepozit.Vklad);
+                            sw.WriteLine(studentDepozit.MaxVyber);
+                        }
+                        actualStateOfMoney.Content = "Aktuální stav - " + studentDepozit.Vklad.ToString();
+                    }
+                    else
+                    {
+                        depozitnics.Vklad += Convert.ToDouble(pasteMoney.Text);
+                        Stream stream = new FileStream(nazev, FileMode.Create);
+                        using (StreamWriter sw = new StreamWriter(stream))
+                        {
+                            sw.WriteLine(depozitnics.NazevUctu);
+                            sw.WriteLine(depozitnics.Vklad);
+                        }
+                        actualStateOfMoney.Content = "Aktuální stav - " + depozitnics.Vklad.ToString();
+                    }
+                    pasteMoney.Clear();
+                }
+            }
+        }
+
+        private void unPasteMoneyBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
