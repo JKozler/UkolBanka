@@ -25,6 +25,7 @@ namespace UkolBanka
         string nazev = "";
         Depozitnics depozitnics = new Depozitnics();
         StudentDepozit studentDepozit = new StudentDepozit();
+        DateTime dateTime = new DateTime();
         public DepozitLoad(string nameFile)
         {
             InitializeComponent();
@@ -60,11 +61,44 @@ namespace UkolBanka
                         }
                         else if (i == 2)
                         {
+                            dateTime = Convert.ToDateTime(line);
+                            i++;
+                        }
+                        else if (i == 3)
+                        {
                             actualMaxWithrawl.Content = "Student, max. výběr - " + line + "Kč.";
                             studentDepozit.MaxVyber = Convert.ToDouble(line);
                             i++;
                         }
                     }
+                }
+            }
+            if (PrepisMoney(dateTime))
+            {
+                if (student)
+                {
+                    Stream stream = new FileStream(nameFile, FileMode.Append);
+                    double novaCastka = studentDepozit.Vklad * 0.1333 / 100 + studentDepozit.Vklad;
+                    using (StreamWriter sw = new StreamWriter(stream))
+                    {
+                        sw.WriteLine(studentDepozit.NazevUctu);
+                        sw.WriteLine(novaCastka.ToString());
+                        sw.WriteLine(DateTime.Now.ToShortDateString());
+                        sw.WriteLine(studentDepozit.MaxVyber);
+                    }
+                    actualStateOfMoney.Content = "Aktuální stav - " + novaCastka.ToString() + "Kč.";
+                }
+                else
+                {
+                    Stream stream = new FileStream(nameFile, FileMode.Append);
+                    double novaCastka = studentDepozit.Vklad * 0.1333 / 100 + studentDepozit.Vklad;
+                    using (StreamWriter sw = new StreamWriter(stream))
+                    {
+                        sw.WriteLine(studentDepozit.NazevUctu);
+                        sw.WriteLine(novaCastka.ToString());
+                        sw.WriteLine(DateTime.Now.ToShortDateString());
+                    }
+                    actualStateOfMoney.Content = "Aktuální stav - " + novaCastka.ToString() + "Kč.";
                 }
             }
         }
@@ -173,7 +207,22 @@ namespace UkolBanka
         private void Calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
             virtaulDate.Content = calendar.SelectedDate.Value.ToString();
-            txtPredikce.Text = depozitnics.CalculateEarnings(calendar.SelectedDate.Value);
+            string predict = "";
+            if (student)
+                predict = studentDepozit.CalculateEarnings(calendar.SelectedDate.Value);
+            else
+                predict = depozitnics.CalculateEarnings(calendar.SelectedDate.Value);
+            txtPredikce.Text = predict;
+        }
+
+        public bool PrepisMoney(DateTime date)
+        {
+            int g = date.Month - DateTime.Now.Month;
+            if (g == 1)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

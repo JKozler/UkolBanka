@@ -62,7 +62,7 @@ namespace UkolBanka
                         {
                             if (y >= 0)
                             {
-                                newCastka = 1.6 / (12 - y) + Vklad;
+                                newCastka = Vklad * (1.6 / (12 - i)) / 100 + Vklad;
                             }
                         }
                     }
@@ -76,14 +76,16 @@ namespace UkolBanka
             {
                 if (vDay < nDay)
                 {
-                    return "Částky se načítají až po měsíci.";
+                    if (i > 1)
+                    {
+                        newCastka = Vklad * (1.6 / (12 - (12 - dMonth + vMonth)) * z) / 100 + Vklad;
+                    }
+                    else
+                        return "Částky se načítají až po měsíci.";
                 }
                 else
                 {
-                    if (vMonth < dMonth)
-                    {
-
-                    }
+                    newCastka = Vklad * (1.6 / (12 - (12 - dMonth + vMonth)) * z) / 100 + Vklad;
                 }
             }
             

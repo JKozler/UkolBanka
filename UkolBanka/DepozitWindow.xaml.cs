@@ -75,6 +75,7 @@ namespace UkolBanka
                         {
                             sw.WriteLine(depozitnics.NazevUctu);
                             sw.WriteLine(depozitnics.Vklad);
+                            sw.WriteLine(DateTime.Now.ToShortDateString());
                         }
                         vkladTxt.Clear();
                         nameAcc.Clear();
@@ -102,6 +103,7 @@ namespace UkolBanka
                         {
                             sw.WriteLine(studentDepozit.NazevUctu);
                             sw.WriteLine(studentDepozit.Vklad);
+                            sw.WriteLine(DateTime.Now.ToShortDateString());
                             sw.WriteLine(studentDepozit.MaxVyber);
                         }
                         vkladTxt.Clear();
