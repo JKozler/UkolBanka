@@ -21,6 +21,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="0.05*"/>
+                <RowDefinition Height="0.3*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Content="Založit nový" FontSize="72"></Label>
@@ -28,8 +29,11 @@
             <materialDesign:PackIcon Kind="Create" Width="120" Height="120" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <Button x:Name="kredit" Click="Kredit_Click" Grid.Row="1" Grid.Column="2" Content="Kreditní" FontWeight="Bold" FontSize="48" HorizontalAlignment="Left" VerticalAlignment="Center" Height="90" Margin="0,66,0,80" Width="278" Background="#FFDADADA"/>
             <Border Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Background="Black"></Border>
-            <ListBox BorderThickness="1" FontSize="25" HorizontalContentAlignment="Center" x:Name="lblAccounts" Grid.Row="3" Margin="5" BorderBrush="#FF303030"></ListBox>
-            <Button x:Name="createAcc" Click="CreateAcc_Click" Grid.Column="1" Grid.Row="3" Content="Načíst účet" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Background="#FFDADADA" FontWeight="Bold"></Button>
+            <Label Grid.Row="3" Content="Depozitní" FontSize="36" FontWeight="Bold" Margin="10,0,0,0"></Label>
+            <Label Grid.Row="3" Grid.Column="2" Content="Kreditní" FontSize="36" FontWeight="Bold" Margin="0,0,10,0" HorizontalAlignment="Right"></Label>
+            <ListBox BorderThickness="1" FontSize="25" HorizontalContentAlignment="Center" x:Name="lblAccounts" Grid.Row="4" Margin="5" BorderBrush="#FF303030"></ListBox>
+            <ListBox BorderThickness="1" FontSize="25" HorizontalContentAlignment="Center" x:Name="lblAccKredit" Grid.Row="4" Grid.Column="2" Margin="5" BorderBrush="#FF303030"></ListBox>
+            <Button x:Name="createAcc" Click="CreateAcc_Click" Grid.Column="1" Grid.Row="4" Content="Načíst účet" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Background="#FFDADADA" FontWeight="Bold"></Button>
         </Grid>
     </Border>
 </Window>

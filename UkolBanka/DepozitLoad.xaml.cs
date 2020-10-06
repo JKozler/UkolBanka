@@ -121,26 +121,43 @@ namespace UkolBanka
                 {
                     if (student)
                     {
-                        studentDepozit.Vklad += Convert.ToDouble(pasteMoney.Text);
-                        Stream stream = new FileStream(nazev, FileMode.Create);
-                        using (StreamWriter sw = new StreamWriter(stream))
+                        try
                         {
-                            sw.WriteLine(studentDepozit.NazevUctu);
-                            sw.WriteLine(studentDepozit.Vklad);
-                            sw.WriteLine(studentDepozit.MaxVyber);
+                            studentDepozit.Vklad += Convert.ToDouble(pasteMoney.Text);
+                            Stream stream = new FileStream(nazev, FileMode.Create);
+                            using (StreamWriter sw = new StreamWriter(stream))
+                            {
+                                sw.WriteLine(studentDepozit.NazevUctu);
+                                sw.WriteLine(studentDepozit.Vklad);
+                                sw.WriteLine(DateTime.Now.ToShortDateString());
+                                sw.WriteLine(studentDepozit.MaxVyber);
+                            }
+                            actualStateOfMoney.Content = "Aktuální stav - " + studentDepozit.Vklad.ToString();
                         }
-                        actualStateOfMoney.Content = "Aktuální stav - " + studentDepozit.Vklad.ToString();
+                        catch (Exception)
+                        {
+                            throw new Exception("Zadat cislo prosim.");
+                        }
                     }
                     else
                     {
-                        depozitnics.Vklad += Convert.ToDouble(pasteMoney.Text);
-                        Stream stream = new FileStream(nazev, FileMode.Create);
-                        using (StreamWriter sw = new StreamWriter(stream))
+                        try
                         {
-                            sw.WriteLine(depozitnics.NazevUctu);
-                            sw.WriteLine(depozitnics.Vklad);
+                            depozitnics.Vklad += Convert.ToDouble(pasteMoney.Text);
+                            Stream stream = new FileStream(nazev, FileMode.Create);
+                            using (StreamWriter sw = new StreamWriter(stream))
+                            {
+                                sw.WriteLine(depozitnics.NazevUctu);
+                                sw.WriteLine(depozitnics.Vklad);
+                                sw.WriteLine(DateTime.Now.ToShortDateString());
+                            }
+                            actualStateOfMoney.Content = "Aktuální stav - " + depozitnics.Vklad.ToString();
                         }
-                        actualStateOfMoney.Content = "Aktuální stav - " + depozitnics.Vklad.ToString();
+                        catch (Exception)
+                        {
+
+                            throw new Exception("Zadat cislo prosim.");
+                        }
                     }
                     pasteMoney.Clear();
                 }
@@ -165,6 +182,7 @@ namespace UkolBanka
                                 {
                                     sw.WriteLine(studentDepozit.NazevUctu);
                                     sw.WriteLine(studentDepozit.Vklad);
+                                    sw.WriteLine(DateTime.Now.ToShortDateString());
                                     sw.WriteLine(studentDepozit.MaxVyber);
                                 }
                                 actualStateOfMoney.Content = "Aktuální stav - " + studentDepozit.Vklad.ToString();
@@ -185,6 +203,7 @@ namespace UkolBanka
                             {
                                 sw.WriteLine(depozitnics.NazevUctu);
                                 sw.WriteLine(depozitnics.Vklad);
+                                sw.WriteLine(DateTime.Now.ToShortDateString());
                             }
                             actualStateOfMoney.Content = "Aktuální stav - " + depozitnics.Vklad.ToString();
                         }

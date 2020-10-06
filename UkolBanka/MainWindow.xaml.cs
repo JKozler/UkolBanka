@@ -24,17 +24,7 @@ namespace UkolBanka
         public MainWindow()
         {
             InitializeComponent();
-            if (File.Exists("accounts.txt"))
-            {
-                using (StreamReader sr = new StreamReader("accounts.txt"))
-                {
-                    string line;
-                    while ((line = sr.ReadLine()) != null)
-                    {
-                        lblAccounts.Items.Add(line);
-                    }
-                }
-            }
+            CheckForAccountsToLoad();
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -50,7 +40,8 @@ namespace UkolBanka
 
         private void Kredit_Click(object sender, RoutedEventArgs e)
         {
-
+            KreditWindow kreditWindow = new KreditWindow();
+            kreditWindow.ShowDialog();
         }
 
         private void CreateAcc_Click(object sender, RoutedEventArgs e)
@@ -59,6 +50,32 @@ namespace UkolBanka
             {
                 DepozitLoad depozitLoad = new DepozitLoad(lblAccounts.SelectedItem.ToString() + ".txt");
                 depozitLoad.ShowDialog();
+            }
+        }
+
+        public void CheckForAccountsToLoad()
+        {
+            if (File.Exists("accounts.txt"))
+            {
+                using (StreamReader sr = new StreamReader("accounts.txt"))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        lblAccounts.Items.Add(line);
+                    }
+                }
+            }
+            if (File.Exists("accountsKredit.txt"))
+            {
+                using (StreamReader sr = new StreamReader("accountsKredit.txt"))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        lblAccounts.Items.Add(line);
+                    }
+                }
             }
         }
     }
