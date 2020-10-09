@@ -28,6 +28,18 @@ namespace UkolBanka
         {
             return "Účet s názvem " + NazevUctu + " má stav účtu " + Vklad + "Kč s 1,6% zúročněním za rok.";
         }
+        public double AddVklad(double vkl)
+        {
+            return Vklad + vkl;
+        }
+        public virtual double MinVklad(double vkl)
+        {
+            if (Vklad < vkl)
+            {
+                return Vklad;
+            }
+            return Vklad - vkl;
+        }
         public string CalculateEarnings(DateTime virtualDate)
         {
             int vDay = virtualDate.Day;

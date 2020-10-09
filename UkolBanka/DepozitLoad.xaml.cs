@@ -123,7 +123,7 @@ namespace UkolBanka
                     {
                         try
                         {
-                            studentDepozit.Vklad += Convert.ToDouble(pasteMoney.Text);
+                            studentDepozit.Vklad += studentDepozit.AddVklad(Convert.ToDouble(pasteMoney.Text));
                             Stream stream = new FileStream(nazev, FileMode.Create);
                             using (StreamWriter sw = new StreamWriter(stream))
                             {
@@ -132,7 +132,7 @@ namespace UkolBanka
                                 sw.WriteLine(DateTime.Now.ToShortDateString());
                                 sw.WriteLine(studentDepozit.MaxVyber);
                             }
-                            actualStateOfMoney.Content = "Aktuální stav - " + studentDepozit.Vklad.ToString();
+                            actualStateOfMoney.Content = "Aktuální stav - " + studentDepozit.Vklad.ToString() + "Kč";
                         }
                         catch (Exception)
                         {
@@ -151,7 +151,7 @@ namespace UkolBanka
                                 sw.WriteLine(depozitnics.Vklad);
                                 sw.WriteLine(DateTime.Now.ToShortDateString());
                             }
-                            actualStateOfMoney.Content = "Aktuální stav - " + depozitnics.Vklad.ToString();
+                            actualStateOfMoney.Content = "Aktuální stav - " + depozitnics.Vklad.ToString() + "Kč";
                         }
                         catch (Exception)
                         {
@@ -172,11 +172,11 @@ namespace UkolBanka
                 {
                     if (student)
                     {
-                        if (Convert.ToDouble(unPasteMoney.Text) <= studentDepozit.MaxVyber)
+                        try
                         {
-                            if ((studentDepozit.Vklad - Convert.ToDouble(unPasteMoney.Text)) >= 0)
+                            if (studentDepozit.MinVklad(Convert.ToDouble(unPasteMoney.Text)) != studentDepozit.Vklad)
                             {
-                                studentDepozit.Vklad -= Convert.ToDouble(unPasteMoney.Text);
+                                studentDepozit.Vklad = studentDepozit.MinVklad(Convert.ToDouble(unPasteMoney.Text));
                                 Stream stream = new FileStream(nazev, FileMode.Create);
                                 using (StreamWriter sw = new StreamWriter(stream))
                                 {
@@ -185,30 +185,39 @@ namespace UkolBanka
                                     sw.WriteLine(DateTime.Now.ToShortDateString());
                                     sw.WriteLine(studentDepozit.MaxVyber);
                                 }
-                                actualStateOfMoney.Content = "Aktuální stav - " + studentDepozit.Vklad.ToString();
+                                actualStateOfMoney.Content = "Aktuální stav - " + studentDepozit.Vklad.ToString() + "Kč";
+                            }
+                            else
+                                MessageBox.Show("You can't go under your max payout.");
+                        }
+                        catch (Exception)
+                        {
+                            throw new Exception("Zadat cislo prosim.");
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            if (depozitnics.MinVklad(Convert.ToDouble(unPasteMoney.Text)) != depozitnics.Vklad)
+                            {
+                                depozitnics.Vklad = depozitnics.MinVklad(Convert.ToDouble(unPasteMoney.Text));
+                                Stream stream = new FileStream(nazev, FileMode.Create);
+                                using (StreamWriter sw = new StreamWriter(stream))
+                                {
+                                    sw.WriteLine(depozitnics.NazevUctu);
+                                    sw.WriteLine(depozitnics.Vklad);
+                                    sw.WriteLine(DateTime.Now.ToShortDateString());
+                                }
+                                actualStateOfMoney.Content = "Aktuální stav - " + depozitnics.Vklad.ToString() + "Kč";
                             }
                             else
                                 MessageBox.Show("You can't under 0.");
                         }
-                        else
-                            MessageBox.Show("You can't go under your max payout.");
-                    }
-                    else
-                    {
-                        if ((depozitnics.Vklad - Convert.ToDouble(unPasteMoney.Text)) >= 0)
+                        catch (Exception)
                         {
-                            depozitnics.Vklad -= Convert.ToDouble(unPasteMoney.Text);
-                            Stream stream = new FileStream(nazev, FileMode.Create);
-                            using (StreamWriter sw = new StreamWriter(stream))
-                            {
-                                sw.WriteLine(depozitnics.NazevUctu);
-                                sw.WriteLine(depozitnics.Vklad);
-                                sw.WriteLine(DateTime.Now.ToShortDateString());
-                            }
-                            actualStateOfMoney.Content = "Aktuální stav - " + depozitnics.Vklad.ToString();
+                            throw new Exception("Zadat cislo prosim.");
                         }
-                        else
-                            MessageBox.Show("You can't under 0.");
                     }
                     unPasteMoney.Clear();
                 }

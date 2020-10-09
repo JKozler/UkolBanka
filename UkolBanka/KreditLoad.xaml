@@ -1,0 +1,38 @@
+﻿<Window x:Class="UkolBanka.KreditLoad"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UkolBanka"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+        fw:AcrylicWindow.Enabled="True"
+        fw:AcrylicWindow.AcrylicWindowStyle="None"
+        mc:Ignorable="d"
+        Title="KreditLoad" Height="720" Width="1800" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" MouseDown="Window_MouseDown">
+    <Border>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label x:Name="nameOfAcc" Grid.ColumnSpan="2" Content="Kreditní účet" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontWeight="Bold"></Label>
+            <Label Grid.Column="4" HorizontalAlignment="Right" Content="[Datum]" x:Name="actualDate" FontSize="24" FontWeight="Bold"></Label>
+            <Button x:Name="close" Click="close_Click" Width="50" Height="30" Grid.Column="5" VerticalAlignment="Top" HorizontalAlignment="Right" Background="PaleVioletRed">
+                <materialDesign:PackIcon Kind="Close" Width="20" Height="20"/>
+            </Button>
+        </Grid>
+    </Border>
+</Window>

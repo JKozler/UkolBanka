@@ -36,12 +36,14 @@ namespace UkolBanka
         {
             DepozitWindow depozitWindow = new DepozitWindow();
             depozitWindow.ShowDialog();
+            CheckForAccountsToLoad();
         }
 
         private void Kredit_Click(object sender, RoutedEventArgs e)
         {
             KreditWindow kreditWindow = new KreditWindow();
             kreditWindow.ShowDialog();
+            CheckForAccountsToLoad();
         }
 
         private void CreateAcc_Click(object sender, RoutedEventArgs e)
@@ -55,6 +57,8 @@ namespace UkolBanka
 
         public void CheckForAccountsToLoad()
         {
+            lblAccounts.Items.Clear();
+            lblAccKredit.Items.Clear();
             if (File.Exists("accounts.txt"))
             {
                 using (StreamReader sr = new StreamReader("accounts.txt"))
