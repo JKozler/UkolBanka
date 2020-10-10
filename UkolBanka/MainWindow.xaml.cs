@@ -53,6 +53,11 @@ namespace UkolBanka
                 DepozitLoad depozitLoad = new DepozitLoad(lblAccounts.SelectedItem.ToString() + ".txt");
                 depozitLoad.ShowDialog();
             }
+            else if (lblAccKredit.SelectedItem != null)
+            {
+                KreditLoad kreditLoad = new KreditLoad(lblAccKredit.SelectedItem.ToString() + ".krd");
+                kreditLoad.ShowDialog();
+            }
         }
 
         public void CheckForAccountsToLoad()
@@ -77,7 +82,7 @@ namespace UkolBanka
                     string line;
                     while ((line = sr.ReadLine()) != null)
                     {
-                        lblAccounts.Items.Add(line);
+                        lblAccKredit.Items.Add(line);
                     }
                 }
             }
