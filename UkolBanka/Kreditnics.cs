@@ -33,7 +33,7 @@ namespace UkolBanka
         }
         public override string ToString()
         {
-            return "Kreditní účet s názvem " + NazevUctu + " má stav kreditu " + Kredit + "Kč s 3,6% úrokem";
+            return "Kreditní účet s názvem " + NazevUctu + " má stav kreditu -" + ActualSpend + "Kč z max částky " + Kredit + "Kč s 3,6% úrokem";
         }
         public double TakeOutMoney(double money)
         {
@@ -41,7 +41,20 @@ namespace UkolBanka
                 Warning = true;
             return Kredit - (Kredit - money);
         }
-        public string CalculateSpendings(DateTime virtualDate, double vybranaCastka)
+        public double TakeInMoney(double money)
+        {
+            if (money < ActualSpend)
+            {
+                return ActualSpend - money;
+            }
+            else if (money == ActualSpend)
+            {
+                Warning = false;
+                return ActualSpend - money;
+            }
+            return ActualSpend;
+        }
+        public string CalculateSpendings(DateTime virtualDate)
         {
             int vDay = virtualDate.Day;
             int nDay = DateTime.Now.Day;
@@ -64,19 +77,46 @@ namespace UkolBanka
                 {
                     if (vDay < nDay)
                     {
-                        newCastka = myKredit - vybranaCastka * 3.6;
+                        return "Částky se načítají až po měsíci.";
                     }
-
+                    else
+                    {
+                        if (i == 1 && vDay < nDay)
+                        {
+                            return "Částky se načítají až po měsíci.";
+                        }
+                        else
+                        {
+                            if (y >= 0)
+                            {
+                                newCastka = ActualSpend * (3.6 / (12 - i)) / 100 + ActualSpend;
+                            }
+                        }
+                    }
                 }
             }
-            if (newCastka >= -10000)
+            else if (vYear < nYear)
             {
-                return "Při výběru " + vybranaCastka + "Kč by se Váš kredit snížil " + virtualDate.ToShortDateString() + " na částku " + newCastka.ToString() + "Kč.";
+                return "Musíte jít do budoucnosti!";
             }
             else
             {
-                return "Limit vašeho kreditu je -10 000 Kč.";
+                if (vDay < nDay)
+                {
+                    if (i > 1)
+                    {
+                        newCastka = ActualSpend * (3.6 / (12 - (12 - dMonth + vMonth)) * z) / 100 + ActualSpend;
+                    }
+                    else
+                        return "Částky se načítají až po měsíci.";
+                }
+                else
+                {
+                    newCastka = ActualSpend * (3.6 / (12 - (12 - dMonth + vMonth)) * z) / 100 + ActualSpend;
+                }
             }
+
+            return "Při aktuální útratě " + ActualSpend + "Kč by se Váš učet navýšil k " + virtualDate.ToShortDateString() + " na částku " + newCastka.ToString() + "Kč.";
 
         }
     }

@@ -81,6 +81,7 @@ namespace UkolBanka
                     TimeSpan span = DateTime.Now - dateTime;
                     int day = 45 - span.Days;
                     warningEll.ToolTip = "Do zaplacení bez sankcí zbývá " + day + "dní.";
+                    infoUrokBorder.Visibility = Visibility.Visible;
                 }
             }
         }
@@ -129,6 +130,7 @@ namespace UkolBanka
                         TimeSpan span = DateTime.Now - dateTime;
                         int day = 45 - span.Days;
                         warningEll.ToolTip = "Do zaplacení bez sankcí zbývá " + day + "dní.";
+                        infoUrokBorder.Visibility = Visibility.Visible;
                     }
                     unPasteMoney.Text = "";
                 }
@@ -148,12 +150,75 @@ namespace UkolBanka
 
         private void pasteMoneyBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            if (pasteMoney.Text != null)
+            {
+                try
+                {
+                    double s = kreditnics.TakeInMoney(Convert.ToInt32(pasteMoney.Text));
+                    if (s == kreditnics.ActualSpend)
+                        MessageBox.Show("Prosím nepřeplacovat!");
+                    else
+                    {
+                        kreditnics.ActualSpend = kreditnics.TakeInMoney(Convert.ToInt32(pasteMoney.Text));
+                        Console.WriteLine(kreditnics.Warning);
+                        Stream stream = new FileStream(nazev, FileMode.Create);
+                        using (StreamWriter sw = new StreamWriter(stream))
+                        {
+                            sw.WriteLine(kreditnics.NazevUctu);
+                            sw.WriteLine(kreditnics.Kredit);
+                            sw.WriteLine(kreditnics.ActualSpend);
+                            sw.WriteLine(kreditnics.Warning.ToString());
+                            if (kreditnics.Warning == false)
+                                sw.WriteLine(dateTime.ToShortDateString());
+                            else
+                                sw.WriteLine(DateTime.Now.ToShortDateString());
+                        }
+                        actualStateOfMoney.Content = "Aktuální útrata je " + kreditnics.ActualSpend + "Kč " + "(-" + pasteMoney.Text + "Kč)" + " a můžete jít maximálně do výše " + kreditnics.Kredit + "Kč.";
+                        if (kreditnics.Warning == true)
+                        {
+                            pasteMoney.Visibility = Visibility.Visible;
+                            pasteMoneyBtn.Visibility = Visibility.Visible;
+                            lblPasteMoney.Visibility = Visibility.Visible;
+                            DoubleAnimation ell = new DoubleAnimation(1, 80, new Duration(new TimeSpan(8000000)));
+                            warningEll.BeginAnimation(HeightProperty, ell);
+                            warningEll.BeginAnimation(WidthProperty, ell);
+                            DoubleAnimation mat = new DoubleAnimation(1, 50, new Duration(new TimeSpan(8000000)));
+                            warningIcon.BeginAnimation(HeightProperty, mat);
+                            warningIcon.BeginAnimation(WidthProperty, mat);
+                            TimeSpan span = DateTime.Now - dateTime;
+                            int day = 45 - span.Days;
+                            warningEll.ToolTip = "Do zaplacení bez sankcí zbývá " + day + "dní.";
+                            infoUrokBorder.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            pasteMoney.Visibility = Visibility.Hidden;
+                            pasteMoneyBtn.Visibility = Visibility.Hidden;
+                            lblPasteMoney.Visibility = Visibility.Hidden;
+                            DoubleAnimation ell = new DoubleAnimation(80, 1, new Duration(new TimeSpan(8000000)));
+                            warningEll.BeginAnimation(HeightProperty, ell);
+                            warningEll.BeginAnimation(WidthProperty, ell);
+                            DoubleAnimation mat = new DoubleAnimation(50, 1, new Duration(new TimeSpan(8000000)));
+                            warningIcon.BeginAnimation(HeightProperty, mat);
+                            warningIcon.BeginAnimation(WidthProperty, mat);
+                            infoUrokBorder.Visibility = Visibility.Hidden;
+                        }
+                        pasteMoney.Text = "";
+                    }
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Cislo zadat");
+                }
+            }
+            else
+                MessageBox.Show("Vyplnit pole prosim.");
         }
 
         private void calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            virtaulDate.Content = calendar.SelectedDate.Value.ToString();
+            txtPredikce.Text = kreditnics.CalculateSpendings(calendar.SelectedDate.Value);
         }
     }
 }

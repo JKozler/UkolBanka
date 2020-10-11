@@ -32,6 +32,7 @@
             <Label Grid.Column="4" HorizontalAlignment="Right" Content="[Datum]" x:Name="actualDate" FontSize="24" FontWeight="Bold"></Label>
             <Label Grid.ColumnSpan="3" Grid.Row="0" Grid.Column="2" x:Name="actualStateOfMoney" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="25"></Label>
             <Label Grid.Row="1" Content="Vybrat peníze:" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontWeight="Bold" FontSize="30"></Label>
+            <Label Grid.Column="5" HorizontalAlignment="Right" Content="Virtuální datum" x:Name="virtaulDate" FontSize="24" VerticalContentAlignment="Bottom" Margin="0,56,0,0" Width="290"/>
             <TextBox Margin="0,0,0,30" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Bottom" Grid.ColumnSpan="2" x:Name="unPasteMoney" HorizontalContentAlignment="Center" FontSize="30"></TextBox>
             <Label x:Name="lblPasteMoney" Grid.Row="2" Visibility="Hidden" Content="Vložit peníze:" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontWeight="Bold" FontSize="30"></Label>
             <TextBox Margin="0,0,0,30" Grid.Row="2" Visibility="Hidden" Grid.Column="1" VerticalContentAlignment="Bottom" Grid.ColumnSpan="2" x:Name="pasteMoney" HorizontalContentAlignment="Center" FontSize="30"></TextBox>
@@ -52,6 +53,19 @@
             </Button>
             <materialDesign:PackIcon Kind="InfoCircleOutline" Width="30" Height="30" Grid.Column="1" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
             <Label Grid.Row="5" Grid.Column="1" Content="Po upozornění banky musí dojít k úhradě veškerých dluhů do max. 45 dnů, jinak budete muset platit úrok 3,6%." Grid.ColumnSpan="3" FontWeight="Bold" FontSize="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="35,0,0,0"></Label>
+
+            <Border x:Name="infoUrokBorder" Visibility="Hidden" Grid.Column="5" Grid.Row="1" Grid.RowSpan="2" Margin="2" Background="#FFE6E6E6">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.3*"/>
+                        <RowDefinition Height="0.7*"/>
+                    </Grid.RowDefinitions>
+                    <TextBox IsEnabled="False" TextWrapping="WrapWithOverflow" Text="Po kliknutí na kalendář se zde zobrazí Vaše predikce Vašeho zúročnění (pokud nezaplatíte v řádném termínu)." HorizontalContentAlignment="Center" VerticalContentAlignment="Top" FontSize="20" Foreground="Black"></TextBox>
+                    <materialDesign:PackIcon Height="40" Width="40" Kind="ArrowDown" Grid.Row="1" HorizontalAlignment="Center"/>
+                    <TextBox Grid.Row="2" IsEnabled="False" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="18" x:Name="txtPredikce"></TextBox>
+                </Grid>
+            </Border>
             <Calendar x:Name="calendar" SelectedDatesChanged="calendar_SelectedDatesChanged" Margin="10,0,10,10" Grid.RowSpan="3" Grid.Column="5" Grid.Row="3"/>
         </Grid>
     </Border>
