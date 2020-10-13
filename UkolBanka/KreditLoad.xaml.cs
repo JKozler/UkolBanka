@@ -80,8 +80,25 @@ namespace UkolBanka
                     warningIcon.BeginAnimation(WidthProperty, mat);
                     TimeSpan span = DateTime.Now - dateTime;
                     int day = 45 - span.Days;
-                    warningEll.ToolTip = "Do zaplacení bez sankcí zbývá " + day + "dní.";
-                    infoUrokBorder.Visibility = Visibility.Visible;
+                    if (day == 0)
+                    {
+                        warningEll.ToolTip = "Bohužel dostáváte sankci.. Do zaplacení zbývá 45 dní.";
+                        infoUrokBorder.Visibility = Visibility.Visible;
+                        Stream stream = new FileStream(nazev, FileMode.Create);
+                        using (StreamWriter sw = new StreamWriter(stream))
+                        {
+                            sw.WriteLine(kreditnics.NazevUctu);
+                            sw.WriteLine(kreditnics.Kredit);
+                            sw.WriteLine(kreditnics.ActualSpend);
+                            sw.WriteLine(kreditnics.Warning.ToString());
+                            sw.WriteLine(DateTime.Now.ToShortDateString());
+                        }
+                    }
+                    else
+                    {
+                        warningEll.ToolTip = "Do zaplacení bez sankcí zbývá " + day + "dní.";
+                        infoUrokBorder.Visibility = Visibility.Visible;
+                    }
                 }
             }
         }
@@ -136,7 +153,7 @@ namespace UkolBanka
                 }
                 catch (Exception)
                 {
-                    throw new Exception("Cislo zadat");
+                    MessageBox.Show("Zadat číslo.");
                 }
             }
             else
@@ -208,7 +225,7 @@ namespace UkolBanka
                 }
                 catch (Exception)
                 {
-                    throw new Exception("Cislo zadat");
+                    MessageBox.Show("Zadat číslo.");
                 }
             }
             else

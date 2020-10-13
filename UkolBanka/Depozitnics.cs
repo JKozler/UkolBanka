@@ -60,7 +60,11 @@ namespace UkolBanka
                 }
                 else
                 {
-                    if (vDay < nDay)
+                    if (vMonth > dMonth && vDay < nDay)
+                    {
+                        newCastka = Vklad * (1.6 / (12 - i)) / 100 + Vklad;
+                    }
+                    else if (vDay < nDay)
                     {
                         return "Částky se načítají až po měsíci.";
                     }

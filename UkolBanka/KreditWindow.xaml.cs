@@ -69,7 +69,7 @@ namespace UkolBanka
                 }
                 catch (Exception)
                 {
-                    throw new Exception("Zadejte ve spravnem formatu - cislo pro mzdu");
+                    MessageBox.Show("Zadat číslo.");
                 }
             }
             else

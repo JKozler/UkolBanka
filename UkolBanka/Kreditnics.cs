@@ -66,8 +66,27 @@ namespace UkolBanka
             int y = vDay - nDay;
             int z = vYear - nYear;
             double newCastka = myKredit;
-
-            if (vYear == nYear)
+            if (vYear < nYear)
+            {
+                return "Musíte jít do budoucnosti!";
+            }
+            else if (vYear > nYear)
+            {
+                if (vDay < nDay)
+                {
+                    if (i > 1)
+                    {
+                        newCastka = ActualSpend * (3.6 / (12 - (12 - dMonth + vMonth)) * z) / 100 + ActualSpend;
+                    }
+                    else
+                        return "Částky se načítají až po měsíci.";
+                }
+                else
+                {
+                    newCastka = ActualSpend * (3.6 / (12 - (12 - dMonth + vMonth)) * z) / 100 + ActualSpend;
+                }
+            }
+            else if (vYear == nYear)
             {
                 if (vMonth <= dMonth)
                 {
@@ -75,7 +94,11 @@ namespace UkolBanka
                 }
                 else
                 {
-                    if (vDay < nDay)
+                    if (vMonth > dMonth && vDay < nDay)
+                    {
+                        newCastka = ActualSpend * (3.6 / (12 - i)) / 100 + ActualSpend;
+                    }
+                    else if (vDay < nDay)
                     {
                         return "Částky se načítají až po měsíci.";
                     }
@@ -93,26 +116,6 @@ namespace UkolBanka
                             }
                         }
                     }
-                }
-            }
-            else if (vYear < nYear)
-            {
-                return "Musíte jít do budoucnosti!";
-            }
-            else
-            {
-                if (vDay < nDay)
-                {
-                    if (i > 1)
-                    {
-                        newCastka = ActualSpend * (3.6 / (12 - (12 - dMonth + vMonth)) * z) / 100 + ActualSpend;
-                    }
-                    else
-                        return "Částky se načítají až po měsíci.";
-                }
-                else
-                {
-                    newCastka = ActualSpend * (3.6 / (12 - (12 - dMonth + vMonth)) * z) / 100 + ActualSpend;
                 }
             }
 

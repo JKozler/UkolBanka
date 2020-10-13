@@ -136,7 +136,7 @@ namespace UkolBanka
                         }
                         catch (Exception)
                         {
-                            throw new Exception("Zadat cislo prosim.");
+                            MessageBox.Show("Zadat číslo.");
                         }
                     }
                     else
@@ -156,7 +156,7 @@ namespace UkolBanka
                         catch (Exception)
                         {
 
-                            throw new Exception("Zadat cislo prosim.");
+                            MessageBox.Show("Zadat číslo.");
                         }
                     }
                     pasteMoney.Clear();
@@ -192,7 +192,7 @@ namespace UkolBanka
                         }
                         catch (Exception)
                         {
-                            throw new Exception("Zadat cislo prosim.");
+                            MessageBox.Show("Zadat číslo.");
                         }
                     }
                     else
@@ -216,7 +216,7 @@ namespace UkolBanka
                         }
                         catch (Exception)
                         {
-                            throw new Exception("Zadat cislo prosim.");
+                            MessageBox.Show("Zadat číslo.");
                         }
                     }
                     unPasteMoney.Clear();
