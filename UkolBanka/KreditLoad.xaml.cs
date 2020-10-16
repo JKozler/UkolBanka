@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Media.Animation;
+using System.Diagnostics;
 
 namespace UkolBanka
 {
@@ -149,7 +150,12 @@ namespace UkolBanka
                         warningEll.ToolTip = "Do zaplacení bez sankcí zbývá " + day + "dní.";
                         infoUrokBorder.Visibility = Visibility.Visible;
                     }
-                    unPasteMoney.Text = "";
+                    Stream stream2 = new FileStream(kreditnics.NazevUctu + "-transaction.txt", FileMode.Append);
+                    using (StreamWriter sw = new StreamWriter(stream2))
+                    {
+                        sw.WriteLine("Platba " + unPasteMoney.Text + " Kč.");
+                    }
+                    unPasteMoney.Clear();
                 }
                 catch (Exception)
                 {
@@ -220,7 +226,12 @@ namespace UkolBanka
                             warningIcon.BeginAnimation(WidthProperty, mat);
                             infoUrokBorder.Visibility = Visibility.Hidden;
                         }
-                        pasteMoney.Text = "";
+                        Stream stream2 = new FileStream(kreditnics.NazevUctu + "-transaction.txt", FileMode.Append);
+                        using (StreamWriter sw = new StreamWriter(stream2))
+                        {
+                            sw.WriteLine("Úhrada bance " + pasteMoney.Text + " Kč.");
+                        }
+                        pasteMoney.Clear();
                     }
                 }
                 catch (Exception)
@@ -236,6 +247,19 @@ namespace UkolBanka
         {
             virtaulDate.Content = calendar.SelectedDate.Value.ToString();
             txtPredikce.Text = kreditnics.CalculateSpendings(calendar.SelectedDate.Value);
+        }
+
+        private void historyTrans_Click(object sender, RoutedEventArgs e)
+        {
+            string file = nazev.Replace(".krd", "");
+            if (File.Exists(file + "-transaction.txt"))
+            {
+                Process.Start(file + "-transaction.txt");
+            }
+            else
+            {
+                MessageBox.Show("Nemáte žádnou historii transakcí!");
+            }
         }
     }
 }

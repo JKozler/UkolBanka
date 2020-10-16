@@ -77,8 +77,6 @@ namespace UkolBanka
                             sw.WriteLine(depozitnics.Vklad);
                             sw.WriteLine(DateTime.Now.ToShortDateString());
                         }
-                        vkladTxt.Clear();
-                        nameAcc.Clear();
                         DoubleAnimation ell = new DoubleAnimation(1, 100, new Duration(new TimeSpan(8000000)));
                         doneellipse.BeginAnimation(HeightProperty, ell);
                         doneellipse.BeginAnimation(WidthProperty, ell);
@@ -86,6 +84,14 @@ namespace UkolBanka
                         doneMaterial.BeginAnimation(HeightProperty, mat);
                         doneMaterial.BeginAnimation(WidthProperty, mat);
                         closeIt.Visibility = Visibility.Visible;
+                        Stream stream3 = new FileStream(depozitnics.NazevUctu + "-transaction.txt", FileMode.Append);
+                        using (StreamWriter sw = new StreamWriter(stream3))
+                        {
+                            sw.WriteLine("Vytvoření účtu " + DateTime.Now.ToShortDateString());
+                            sw.WriteLine("Vklad " + vkladTxt.Text + " Kč.");
+                        }
+                        vkladTxt.Clear();
+                        nameAcc.Clear();
                     }
                 }
                 else
@@ -106,9 +112,6 @@ namespace UkolBanka
                             sw.WriteLine(DateTime.Now.ToShortDateString());
                             sw.WriteLine(studentDepozit.MaxVyber);
                         }
-                        vkladTxt.Clear();
-                        nameAcc.Clear();
-                        maxTxt.Clear();
                         DoubleAnimation ell = new DoubleAnimation(1, 100, new Duration(new TimeSpan(8000000)));
                         doneellipse.BeginAnimation(HeightProperty, ell);
                         doneellipse.BeginAnimation(WidthProperty, ell);
@@ -116,6 +119,15 @@ namespace UkolBanka
                         doneMaterial.BeginAnimation(HeightProperty, mat);
                         doneMaterial.BeginAnimation(WidthProperty, mat);
                         closeIt.Visibility = Visibility.Visible;
+                        Stream stream3 = new FileStream(studentDepozit.NazevUctu + "-student-transaction.txt", FileMode.Append);
+                        using (StreamWriter sw = new StreamWriter(stream3))
+                        {
+                            sw.WriteLine("Vytvoření studenstkého účtu " + DateTime.Now.ToShortDateString());
+                            sw.WriteLine("Vklad " + vkladTxt.Text + " Kč.");
+                        }
+                        vkladTxt.Clear();
+                        nameAcc.Clear();
+                        maxTxt.Clear();
                     }
 
                 }

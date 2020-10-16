@@ -12,6 +12,7 @@ using System.IO;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace UkolBanka
 {
@@ -133,6 +134,11 @@ namespace UkolBanka
                                 sw.WriteLine(studentDepozit.MaxVyber);
                             }
                             actualStateOfMoney.Content = "Aktuální stav - " + studentDepozit.Vklad.ToString() + "Kč";
+                            Stream stream2 = new FileStream(studentDepozit.NazevUctu + "-student-transaction.txt", FileMode.Append);
+                            using (StreamWriter sw = new StreamWriter(stream2))
+                            {
+                                sw.WriteLine("Vklad " + pasteMoney.Text + " Kč.");
+                            }
                         }
                         catch (Exception)
                         {
@@ -152,6 +158,11 @@ namespace UkolBanka
                                 sw.WriteLine(DateTime.Now.ToShortDateString());
                             }
                             actualStateOfMoney.Content = "Aktuální stav - " + depozitnics.Vklad.ToString() + "Kč";
+                            Stream stream2 = new FileStream(depozitnics.NazevUctu + "-transaction.txt", FileMode.Append);
+                            using (StreamWriter sw = new StreamWriter(stream2))
+                            {
+                                sw.WriteLine("Vklad " + pasteMoney.Text + " Kč.");
+                            }
                         }
                         catch (Exception)
                         {
@@ -186,6 +197,11 @@ namespace UkolBanka
                                     sw.WriteLine(studentDepozit.MaxVyber);
                                 }
                                 actualStateOfMoney.Content = "Aktuální stav - " + studentDepozit.Vklad.ToString() + "Kč";
+                                Stream stream2 = new FileStream(studentDepozit.NazevUctu + "-student-transaction.txt", FileMode.Append);
+                                using (StreamWriter sw = new StreamWriter(stream2))
+                                {
+                                    sw.WriteLine("Výběr " + unPasteMoney.Text + " Kč.");
+                                }
                             }
                             else
                                 MessageBox.Show("You can't go under your max payout.");
@@ -210,6 +226,11 @@ namespace UkolBanka
                                     sw.WriteLine(DateTime.Now.ToShortDateString());
                                 }
                                 actualStateOfMoney.Content = "Aktuální stav - " + depozitnics.Vklad.ToString() + "Kč";
+                                Stream stream2 = new FileStream(depozitnics.NazevUctu + "-transaction.txt", FileMode.Append);
+                                using (StreamWriter sw = new StreamWriter(stream2))
+                                {
+                                    sw.WriteLine("Výběr " + unPasteMoney.Text + " Kč.");
+                                }
                             }
                             else
                                 MessageBox.Show("You can't under 0.");
@@ -251,6 +272,19 @@ namespace UkolBanka
                 return true;
             }
             return false;
+        }
+
+        private void historyTrans_Click(object sender, RoutedEventArgs e)
+        {
+            string file = nazev.Replace(".txt", "");
+            if (File.Exists(file + "-transaction.txt"))
+            {
+                Process.Start(file + "-transaction.txt");
+            }
+            else
+            {
+                MessageBox.Show("Nemáte žádnou historii transakcí!");
+            }
         }
     }
 }

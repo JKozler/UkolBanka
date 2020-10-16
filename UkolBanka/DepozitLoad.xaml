@@ -49,6 +49,9 @@
             <Button Grid.Column="0" Grid.Row="5" x:Name="infoBtn" Click="infoBtn_Click" Height="70" VerticalAlignment="Center" HorizontalAlignment="Left" Background="#FF59FFF7" Margin="10,40,0,10" Width="95">
                 <materialDesign:PackIcon Kind="InfoCircleOutline" Width="60" Height="60"/>
             </Button>
+            <Button x:Name="historyTrans" ToolTip="History of transaction" Click="historyTrans_Click" Grid.Row="4" Height="Auto" Margin="108,35,109,10" Background="#FFB4FCFF" >
+                <materialDesign:PackIcon Kind="History" Width="50" Height="50"/>
+            </Button>
             <Border Grid.Column="5" Grid.Row="1" Grid.RowSpan="2" Margin="2" Background="#FFE6E6E6">
                 <Grid>
                     <!--<Grid.ColumnDefinitions>
