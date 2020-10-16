@@ -58,6 +58,8 @@ namespace UkolBanka
                 KreditLoad kreditLoad = new KreditLoad(lblAccKredit.SelectedItem.ToString() + ".krd");
                 kreditLoad.ShowDialog();
             }
+            lblAccounts.SelectedItem = null;
+            lblAccKredit.SelectedItem = null;
         }
 
         public void CheckForAccountsToLoad()
@@ -86,6 +88,8 @@ namespace UkolBanka
                     }
                 }
             }
+            lblAccounts.SelectedItem = null;
+            lblAccKredit.SelectedItem = null;
         }
     }
 }
