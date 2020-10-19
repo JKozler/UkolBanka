@@ -52,56 +52,136 @@ namespace UkolBanka
             int y = vDay - nDay;
             int z = vYear - nYear;
             double newCastka = 0;
-            if (vYear == nYear)
+            if (Vklad > 100000.00)
             {
-                if (vMonth <= dMonth)
+                if (vYear == nYear)
                 {
-                    return "Musíte jít do budoucnosti!";
-                }
-                else
-                {
-                    if (vMonth > dMonth && vDay < nDay)
+                    if (vMonth <= dMonth)
                     {
-                        newCastka = Vklad * (1.6 / (12 - i)) / 100 + Vklad;
-                    }
-                    else if (vDay < nDay)
-                    {
-                        return "Částky se načítají až po měsíci.";
+                        return "Musíte jít do budoucnosti!";
                     }
                     else
                     {
-                        if (i == 1 && vDay < nDay)
+                        if (vMonth > dMonth && vDay < nDay)
+                        {
+                            newCastka = Vklad * (1.1 / (12 - i)) / 100 + Vklad;
+                        }
+                        else if (vDay < nDay)
                         {
                             return "Částky se načítají až po měsíci.";
                         }
                         else
                         {
-                            if (y >= 0)
+                            if (i == 1 && vDay < nDay)
                             {
-                                newCastka = Vklad * (1.6 / (12 - i)) / 100 + Vklad;
+                                return "Částky se načítají až po měsíci.";
+                            }
+                            else
+                            {
+                                if (y >= 0)
+                                {
+                                    newCastka = Vklad * (1.1 / (12 - i)) / 100 + Vklad;
+                                }
                             }
                         }
                     }
                 }
-            }
-            else if (vYear < nYear)
-            {
-                return "Musíte jít do budoucnosti!";
-            }
-            else
-            {
-                if (vDay < nDay)
+                else if (vYear < nYear)
                 {
-                    if (i > 1)
-                    {
-                        newCastka = Vklad * (1.6 / (12 - (12 - dMonth + vMonth)) * z) / 100 + Vklad;
-                    }
-                    else
-                        return "Částky se načítají až po měsíci.";
+                    return "Musíte jít do budoucnosti!";
                 }
                 else
                 {
-                    newCastka = Vklad * (1.6 / (12 - (12 - dMonth + vMonth)) * z) / 100 + Vklad;
+                    if (vDay < nDay)
+                    {
+                        if (i > 1)
+                        {
+                            double helpHolderMoney = Vklad * (1.1 / (12 - dMonth)) / 100;
+                            newCastka = Vklad * ((1.1 / (12 - vMonth)) * z) / 100 + Vklad + helpHolderMoney;
+                        }
+                        else if (vMonth == 1 && dMonth == 12 && vDay < nDay)
+                            return "Částky se načítají až po měsíci.";
+                        else
+                        {
+                            double helpHolderMoney = Vklad * (1.6 / (12 - dMonth)) / 100;
+                            newCastka = Vklad * ((1.6 / (12 - vMonth)) * z) / 100 + Vklad + helpHolderMoney;
+                        }
+                    }
+                    else
+                    {
+                        double helpHolderMoney = Vklad * (1.1 / (12 - dMonth)) / 100;
+                        newCastka = Vklad * ((1.1 / (12 - vMonth)) * z) / 100 + Vklad + helpHolderMoney;
+                    }
+                }
+            }
+            else
+            {
+                if (vYear == nYear)
+                {
+                    if (vMonth <= dMonth)
+                    {
+                        return "Musíte jít do budoucnosti!";
+                    }
+                    else
+                    {
+                        if (vMonth > dMonth && vDay < nDay)
+                        {
+                            newCastka = Vklad * (1.6 / (12 - i)) / 100 + Vklad;
+                        }
+                        else if (vDay < nDay)
+                        {
+                            return "Částky se načítají až po měsíci.";
+                        }
+                        else
+                        {
+                            if (i == 1 && vDay < nDay)
+                            {
+                                return "Částky se načítají až po měsíci.";
+                            }
+                            else
+                            {
+                                if (y >= 0)
+                                {
+                                    newCastka = Vklad * (1.6 / (12 - i)) / 100 + Vklad;
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (vYear < nYear)
+                {
+                    return "Musíte jít do budoucnosti!";
+                }
+                else
+                {
+                    if (vDay < nDay)
+                    {
+                        if (z >= 2)
+                        {
+                            double helpHolderMoney = Vklad * (1.6 / (12 - dMonth)) / 100;
+                            newCastka = Vklad * ((1.6 / (12 - vMonth)) * z) / 100 + Vklad + helpHolderMoney;
+                        }
+                        else
+                        {
+                            if (i > 1)
+                            {
+                                double helpHolderMoney = Vklad * (1.6 / (12 - dMonth)) / 100;
+                                newCastka = Vklad * ((1.6 / (12 - vMonth)) * z) / 100 + Vklad + helpHolderMoney;
+                            }
+                            else if (vMonth == 1 && dMonth == 12 && vDay < nDay)
+                                return "Částky se načítají až po měsíci.";
+                            else
+                            {
+                                double helpHolderMoney = Vklad * (1.6 / (12 - dMonth)) / 100;
+                                newCastka = Vklad * ((1.6 / (12 - vMonth)) * z) / 100 + Vklad + helpHolderMoney;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        double helpHolderMoney = Vklad * (1.6 / (12 - dMonth)) / 100;
+                        newCastka = Vklad * ((1.6 / (12 - vMonth)) * z) / 100 + Vklad + helpHolderMoney;
+                    }
                 }
             }
             

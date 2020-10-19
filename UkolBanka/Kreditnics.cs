@@ -72,18 +72,35 @@ namespace UkolBanka
             }
             else if (vYear > nYear)
             {
+                double year = 3.6 * ((12 - dMonth) + (12 - (12 - vMonth))) / 2;
+                double year2 = 3.6 * (12 - (12 - vMonth)) / 2;
                 if (vDay < nDay)
                 {
-                    if (i > 1)
+                    if (z >= 2)
                     {
-                        newCastka = ActualSpend * (3.6 / (12 - (12 - dMonth + vMonth)) * z) / 100 + ActualSpend;
+                        double helpHolderMoney = ActualSpend * year2 / 100;
+                        newCastka = ActualSpend * (year * z) / 100 + ActualSpend + helpHolderMoney;
                     }
                     else
-                        return "Částky se načítají až po měsíci.";
+                    {
+                        if (i > 1)
+                        {
+                            double helpHolderMoney = ActualSpend * year2 / 100;
+                            newCastka = ActualSpend * (year * z) / 100 + ActualSpend + helpHolderMoney;
+                        }
+                        else if (vMonth == 1 && dMonth == 12 && vDay < nDay)
+                            return "Částky se načítají až po měsíci.";
+                        else
+                        {
+                            double helpHolderMoney = ActualSpend * year2 / 100;
+                            newCastka = ActualSpend * (year * z) / 100 + ActualSpend + helpHolderMoney;
+                        }
+                    }
                 }
                 else
                 {
-                    newCastka = ActualSpend * (3.6 / (12 - (12 - dMonth + vMonth)) * z) / 100 + ActualSpend;
+                    double helpHolderMoney = ActualSpend * year2 / 100;
+                    newCastka = ActualSpend * (year * z) / 100 + ActualSpend + helpHolderMoney;
                 }
             }
             else if (vYear == nYear)
@@ -94,9 +111,10 @@ namespace UkolBanka
                 }
                 else
                 {
+                    double year = 3.6 * (12 - (12 - vMonth) - dMonth) / 2;
                     if (vMonth > dMonth && vDay < nDay)
                     {
-                        newCastka = ActualSpend * (3.6 / (12 - i)) / 100 + ActualSpend;
+                        newCastka = ActualSpend * year / 100 + ActualSpend;
                     }
                     else if (vDay < nDay)
                     {
@@ -112,7 +130,7 @@ namespace UkolBanka
                         {
                             if (y >= 0)
                             {
-                                newCastka = ActualSpend * (3.6 / (12 - i)) / 100 + ActualSpend;
+                                newCastka = ActualSpend * year / 100 + ActualSpend;
                             }
                         }
                     }
