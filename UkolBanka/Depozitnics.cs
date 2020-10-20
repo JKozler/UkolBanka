@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace UkolBanka
 {
-    class Depozitnics : IUzivatel
+    public class Depozitnics : IUzivatel
     {
         public string NazevUctu { get; set; }
         private double myVklad;

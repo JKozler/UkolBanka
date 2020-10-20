@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UkolBanka
 {
-    class Kreditnics : IUzivatel
+    public class Kreditnics : IUzivatel
     {
         public string NazevUctu { get; set; }
         public double ActualSpend { get; set; }
