@@ -102,6 +102,10 @@ namespace UkolBanka
                     actualStateOfMoney.Content = "Aktuální stav - " + novaCastka.ToString() + "Kč.";
                 }
             }
+            if (File.Exists(studentDepozit.NazevUctu + "-student-transaction.txt"))
+                historyTxt.Text = File.ReadAllText(studentDepozit.NazevUctu + "-student-transaction.txt");
+            else
+                historyTxt.Text = File.ReadAllText(depozitnics.NazevUctu + "-transaction.txt");
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

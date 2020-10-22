@@ -40,6 +40,7 @@
             <Label Grid.Row="2" Content="Vybrat peníze:" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontWeight="Bold" FontSize="30"></Label>
             <TextBox Margin="0,0,0,30" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Bottom" Grid.ColumnSpan="2" x:Name="pasteMoney" HorizontalContentAlignment="Center" FontSize="30"></TextBox>
             <TextBox Margin="0,0,0,30" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Bottom" Grid.ColumnSpan="2" x:Name="unPasteMoney" HorizontalContentAlignment="Center" FontSize="30"></TextBox>
+            <TextBlock x:Name="historyTxt" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="1" Grid.RowSpan="3" Margin="10,10,0,0" Background="#FFEEEEEE"></TextBlock>
             <Button x:Name="pasteMoneyBtn" Grid.Column="3" Grid.Row="1" Click="pasteMoneyBtn_Click" Height="Auto" Margin="10,35,197,10" Background="#FF67FF4F">
                 <materialDesign:PackIcon Kind="Money" Width="60" Height="60"/>
             </Button>

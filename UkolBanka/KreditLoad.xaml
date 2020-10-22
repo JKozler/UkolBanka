@@ -53,7 +53,8 @@
             </Button>
             <materialDesign:PackIcon Kind="InfoCircleOutline" Width="30" Height="30" Grid.Column="1" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
             <Label Grid.Row="5" Grid.Column="1" Content="Po upozornění banky musí dojít k úhradě veškerých dluhů do max. 45 dnů, jinak budete muset platit úrok 3,6%." Grid.ColumnSpan="3" FontWeight="Bold" FontSize="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="35,0,0,0"></Label>
-
+            <TextBlock x:Name="historyTxt" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="1" Grid.RowSpan="3" Margin="10,10,0,0" Background="#FFEEEEEE"></TextBlock>
+            
             <Button x:Name="historyTrans" ToolTip="History of transaction" Click="historyTrans_Click" Grid.Row="4" Height="Auto" Margin="108,35,109,10" Background="#FFB4FCFF" >
                 <materialDesign:PackIcon Kind="History" Width="50" Height="50"/>
             </Button>

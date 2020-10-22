@@ -102,6 +102,8 @@ namespace UkolBanka
                     }
                 }
             }
+            if (File.Exists(kreditnics.NazevUctu + "-transaction.txt"))
+                historyTxt.Text = File.ReadAllText(kreditnics.NazevUctu + "-transaction.txt");
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
